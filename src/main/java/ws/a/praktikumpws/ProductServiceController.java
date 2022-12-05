@@ -69,8 +69,14 @@ public class ProductServiceController {
     //Menambahkan data pada product
     @RequestMapping(value = "/products", method = RequestMethod.POST)
     public ResponseEntity<Object> createProduct(@RequestBody Product product){
-        productRepo.put(product.getId(), product);
-        return new ResponseEntity<>("Product is created successfully", HttpStatus.CREATED);
+        if(productRepo.containsKey(product.getId()))
+        {
+            return new ResponseEntity<>("Product Already Exist", HttpStatus.CONFLICT);
+        }
+        else {
+            productRepo.put(product.getId(), product);
+            return new ResponseEntity<>("Product is created successfully", HttpStatus.CREATED);
+        }   
     }
     
     //Menampilkan data pada product
