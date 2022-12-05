@@ -53,10 +53,16 @@ public class ProductServiceController {
     //Menngedit data pada product
     @RequestMapping(value = "/products/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Object> updateProduct(@PathVariable("id") String id, @RequestBody Product product) {
-        productRepo.remove(id);
-        product.setId(id);
-        productRepo.put(id,product);
-        return new ResponseEntity<>("Product is updates successfully", HttpStatus.OK);
+        if(!productRepo.containsKey(id))
+        {
+            return new ResponseEntity<>("Product Not Found", HttpStatus.NOT_FOUND);
+        }
+        else {
+            productRepo.remove(id);
+            product.setId(id);
+            productRepo.put(id,product);
+            return new ResponseEntity<>("Product is updates successfully", HttpStatus.OK);
+        }
         
     }
     
