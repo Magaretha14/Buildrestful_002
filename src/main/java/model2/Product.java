@@ -44,7 +44,7 @@ public class Product {
     }
 
     public Double getTotal() {
-        total = price - (price * disc/100);
+        //total = price - (price * disc/100);
         return total;
     }
 

@@ -32,7 +32,7 @@ public class ProductServiceController {
         honey.setName("Honey");
         honey.setPrice(50000.0);
         honey.setDisc(10.0);
-        //honey.setTotal(honey.getPrice()-(honey.getPrice()*honey.getDisc()/100));
+        honey.setTotal(honey.getPrice()-(honey.getPrice()*honey.getDisc()/100));
         productRepo.put(honey.getId(), honey);
         
         Product almond = new Product();
@@ -40,9 +40,15 @@ public class ProductServiceController {
         almond.setName("Almond");
         almond.setPrice(120000.0);
         almond.setDisc(15.0);
-        //almond.setTotal(almond.getPrice()-(almond.getPrice()*almond.getDisc()/100));
+        almond.setTotal(almond.getPrice()-(almond.getPrice()*almond.getDisc()/100));
         productRepo.put(almond.getId(), almond);
     }
+    
+    /*public Double Total(@PathVariable("id") String id, @RequestBody Product product){
+        double total = product.getPrice() - (product.getPrice() * product.getDisc() / 100);
+                
+        return total;
+    }*/
     
     //Menghapus data pada product
     @RequestMapping(value = "/products/{id}", method = RequestMethod.DELETE)
@@ -66,6 +72,7 @@ public class ProductServiceController {
         }
         else {
             productRepo.remove(id);
+            product.setTotal(product.getPrice() - (product.getPrice()*product.getDisc()/100));
             product.setId(id);
             productRepo.put(id,product);
             return new ResponseEntity<>("Product is updates successfully", HttpStatus.OK);
@@ -82,6 +89,7 @@ public class ProductServiceController {
         }
         else {
             productRepo.put(product.getId(), product);
+            product.setTotal(product.getPrice() - (product.getPrice()*product.getDisc()/100));
             return new ResponseEntity<>("Product is created successfully", HttpStatus.CREATED);
         }   
     }
