@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class ProductServiceController {
+    
     //Tempat untuk meletakkan data product
     private static Map<String, Product> productRepo = new HashMap<>();
     static {
@@ -29,11 +30,17 @@ public class ProductServiceController {
         Product honey = new Product();
         honey.setId("1");
         honey.setName("Honey");
+        honey.setPrice(50000.0);
+        honey.setDisc(10.0);
+        //honey.setTotal(honey.getPrice()-(honey.getPrice()*honey.getDisc()/100));
         productRepo.put(honey.getId(), honey);
         
         Product almond = new Product();
         almond.setId("2");
         almond.setName("Almond");
+        almond.setPrice(120000.0);
+        almond.setDisc(15.0);
+        //almond.setTotal(almond.getPrice()-(almond.getPrice()*almond.getDisc()/100));
         productRepo.put(almond.getId(), almond);
     }
     
